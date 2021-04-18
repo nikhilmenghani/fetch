@@ -42,7 +42,8 @@ class Constants:
     #     Config.TARGET_ANDROID_VERSION) + os.path.sep + current_time
     release_directory = str(Path(cwd).parent) + os.path.sep + "Releases" + os.path.sep + str(
         Config.TARGET_ANDROID_VERSION)
-    temp_packages_directory = str(Path(cwd).parent) + os.path.sep + "TempPackages" + os.path.sep + str(android_version_folder)
+    temp_packages_directory = str(Path(cwd).parent) + os.path.sep + "TempPackages" + os.path.sep + str(
+        android_version_folder)
     # temp_packages_directory = str(Path(cwd).parent) + os.path.sep + "TempPackages" + os.path.sep + str(
     #     TARGET_ANDROID_VERSION) + os.path.sep + current_time + os.path.sep + "Packages"
     path = os.path
@@ -101,7 +102,8 @@ class Constants:
             Constants.android_version_folder)
         Constants.release_directory = str(Path(Constants.cwd).parent) + os.path.sep + "Releases" + os.path.sep + str(
             Config.TARGET_ANDROID_VERSION)
-        Constants.temp_packages_directory = str(Path(Constants.cwd).parent) + os.path.sep + "TempPackages" + os.path.sep + str(
+        Constants.temp_packages_directory = str(
+            Path(Constants.cwd).parent) + os.path.sep + "TempPackages" + os.path.sep + str(
             Constants.android_version_folder)
 
     @staticmethod
@@ -138,15 +140,16 @@ class Constants:
     def get_import_path(app_set, pkg, install_path, export_directory=None):
         base_name = Constants.get_base_name(install_path)
         dir_name = Constants.get_parent_path(install_path)
-        dir_name = str(dir_name).replace("\\system", "").replace("\\product", "")
+        dir_name = str(dir_name).replace("\\system", "").replace("/system", "").replace(
+            "/product", "").replace("\\product", "")
         if export_directory is not None:
             output = export_directory + Constants.dir_sep
         else:
             output = Constants.export_directory + Constants.dir_sep
         if app_set is not None:
             output += app_set + Constants.dir_sep
-        output += str(pkg) + Constants.dir_sep + str(
-            dir_name).replace("\\", "___") + Constants.dir_sep + base_name
+        output += str(pkg) + Constants.dir_sep + str(dir_name).replace("\\", "___").replace(
+            Constants.dir_sep, "___") + Constants.dir_sep + base_name
         if not os.path.exists(Path(output).parent):
             os.makedirs(Path(output).parent)
         return Path(output)
