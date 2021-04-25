@@ -284,18 +284,17 @@ class NikGappsPackages:
                           addToLog "- $install_partition/etc/permissions/com.google.android.media.effects.xml Successfully Written!"
                         fi"""
         if TARGET_ANDROID_VERSION <= 10:
-            files.predefined_file_list.append("etc/sysconfig/google-hiddenapi-package-whitelist.xml")
             files.predefined_file_list.append("etc/sysconfig/google_build.xml")
             files.predefined_file_list.append("etc/sysconfig/google_vr_build.xml")
             files.predefined_file_list.append("etc/sysconfig/google.xml")
         if TARGET_ANDROID_VERSION == 11:
             files.predefined_file_list.append("etc/sysconfig/backup.xml")
             files.predefined_file_list.append("etc/sysconfig/dialer_experience.xml")
-            files.predefined_file_list.append("etc/sysconfig/google-hiddenapi-package-allowlist.xml")
             files.predefined_file_list.append("etc/sysconfig/pixel.xml")
             files.predefined_file_list.append("etc/sysconfig/preinstalled-packages-platform-handheld-product.xml")
             files.predefined_file_list.append("etc/sysconfig/preinstalled-packages-platform-overlays.xml")
             files.predefined_file_list.append("etc/sysconfig/wellbeing.xml")
+        files.predefined_file_list.append("etc/sysconfig/google-hiddenapi-package-whitelist.xml")
         files.predefined_file_list.append("etc/sysconfig/pixel_experience_2017.xml")
         files.predefined_file_list.append("etc/sysconfig/pixel_experience_2018.xml")
         files.predefined_file_list.append("etc/sysconfig/pixel_experience_2019_midyear.xml")
@@ -469,6 +468,8 @@ addToLog \"- Battery Optimization Done in $install_partition/etc/sysconfig/*.xml
         google_turbo = Package("Turbo", "com.google.android.apps.turbo", Constants.is_priv_app, "DeviceHealthServices")
         google_turbo.delete_in_rom("TurboPrebuilt")
         app_set_list.append(AppSet("DeviceHealthServices", [google_turbo]))
+        flipendo = Package("Flipendo", "com.google.android.flipendo", Constants.is_system_app)
+        app_set_list.append(AppSet("Flipendo", [flipendo]))
         return app_set_list
 
     @staticmethod
